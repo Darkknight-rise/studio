@@ -1,0 +1,78 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "public", // This might need to change based on Next.js build output (.next or out)
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+     "rewrites": [
+      {
+        "source": "/api/**", // Proxy API requests to Cloud Functions (if implemented)
+        "function": "api" // Assumes your main Express app function is named 'api'
+      },
+      {
+        "source": "**", // Serve all other requests through the Next.js app
+        "destination": "/index.html" // Or configure for SSR with Cloud Functions
+      }
+    ]
+    // If using Next.js SSR with Cloud Functions, the rewrite configuration will be different.
+    // Example for SSR:
+    // "rewrites": [ { "source": "**", "function": "nextServer" } ]
+    // where 'nextServer' is your Cloud Function handling Next.js requests.
+    // For static export (`next export`), "public": "out" is typical.
+    // For standard `next build`, more complex setup might be needed or rely on Vercel/other platforms.
+    // Check Firebase Hosting documentation for Next.js integration.
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "pubsub": {
+      "port": 8085
+    },
+    "storage": {
+      "port": 9199
+    },
+    "eventarc": {
+      "port": 9299
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  }
+}
