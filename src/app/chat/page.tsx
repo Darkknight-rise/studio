@@ -6,9 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { SendHorizonal, UserCircle, Users } from 'lucide-react';
+import { SendHorizonal, UserCircle, Users, MessageSquare } from 'lucide-react'; // Added MessageSquare
+import { Badge } from '@/components/ui/badge'; // Import Badge component
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+// Import format if you decide to use it for timestamps
+// import { format } from 'date-fns';
 
 
 // Mock data for conversations and messages - replace with Firestore data
